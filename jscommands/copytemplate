@@ -1,28 +1,31 @@
 #!/usr/bin/env node
 
-
-//file system to copy/paste or list files 
+//file system to copy/paste or list files
 //create files delete files
 const fs = require("fs");
 
 //get argument from terminal
 let templateName = process.argv[2];
+function showList() {
+  let list = fs.readdirSync(__dirname + "/templates/");
+  console.log("\x1b[32mavailable templates => \x1b[47m\x1b[34m", list.join(", "), "\x1b[0m");
+  process.exit(0);
+}
 
-if(templateName == "--list")
-{
-    let list = fs.readdirSync(__dirname+"/templates/");
-    console.log("available=>", list.join(", "));
-    process.exit(0);
+if (templateName == "--list") {
+  showList();
 }
 
 if (!templateName) {
   console.error("\x1b[31mPlease enter template name");
+  showList();
   process.exit(0);
 }
 let source = __dirname + "/templates/" + templateName;
 
 if (!fs.existsSync(source)) {
-  console.error("\x1b[31mUnkown template "+templateName);
+  console.error("\x1b[31mUnkown template " + templateName);
+  showList();
   process.exit(0);
 }
 
