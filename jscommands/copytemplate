@@ -1,6 +1,11 @@
 #!/usr/bin/env node
+
+
+//file system to copy/paste or list files 
+//create files delete files
 const fs = require("fs");
 
+//get argument from terminal
 let templateName = process.argv[2];
 
 if(templateName == "--list")
@@ -21,12 +26,13 @@ if (!fs.existsSync(source)) {
   process.exit(0);
 }
 
-// let destination = process.cwd();
+//get the path where the command is called
+let destination = process.cwd();
 
-// try {
-//   fs.cpSync(source, destination, {
-//     recursive: true,
-//   });
-// } catch (error) {
-//   console.log(error.message);
-// }
+try {
+  fs.cpSync(source, destination, {
+    recursive: true,
+  });
+} catch (error) {
+  console.log(error.message);
+}
